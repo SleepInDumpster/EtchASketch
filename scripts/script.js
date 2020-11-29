@@ -1,7 +1,9 @@
 const sketchCointainer = document.querySelector("#sketchcointainer");
 const generateNewButton = document.querySelector("#makesketch");
+const chooseColorButton = document.querySelector("#colorchoose");
 
-let chooseColor = "blue";
+let chooseColor = "#000000";
+chooseColorButton.value = "#000000";
 
 function AskForGrid()
 {
@@ -11,12 +13,15 @@ function AskForGrid()
         lastChild = sketchCointainer.lastElementChild;
     }
     let gridSize = prompt("How big grid? answer = x, grid is x * x");
+    if(gridSize > 100){
+        alert("grid can't be more than 100");
+        AskForGrid();
+    }
     CreateGrid(gridSize);
 }
 
 function changePixelColor(){
-    console.log("a");
-    this.style.backgroundColor = 'blue';
+    this.style.backgroundColor = chooseColor;
 }
 
 function CreateGrid(gridCells = 16){
@@ -39,5 +44,10 @@ function CreateGrid(gridCells = 16){
 
 }
 
+function ChangeColorButton(){
+    chooseColor = chooseColorButton.value;
+}
+
 generateNewButton.addEventListener("click", AskForGrid);
+chooseColorButton.addEventListener("input", ChangeColorButton);
 
